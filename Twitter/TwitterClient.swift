@@ -31,11 +31,23 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
 
+    func logout() {
+        User.currentUser = nil
+        deauthorize()
+
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "UserDidLogOut"), object: nil)
+    }
+
     func handleLoginSuccess(with url: URL) {
         let requestToken = BDBOAuth1Credential(queryString: url.query)
         
         fetchAccessToken(withPath: "oauth/access_token", method: "GET", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) -> Void in
-           self.loginSuccess?()
+            self.getCurrentAccount(success: { (user: User) in
+                User.currentUser = user
+                self.loginSuccess?()
+            }, failure: { (error: Error) in
+                self.loginFailure?(error)
+            })
         }, failure: { (error: Error!) ->Void in
             self.loginFailure?(error)
         })
