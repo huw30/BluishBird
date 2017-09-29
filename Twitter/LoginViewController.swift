@@ -13,7 +13,7 @@ import BDBOAuth1Manager
 class LoginViewController: UIViewController {
 
     @IBAction func onLogin(_ sender: Any) {
-        TwitterClient.sharedInstance?.login(success: {
+        TwitterClient.sharedInstance.login(success: {
             self.performSegue(withIdentifier: "loginSegue", sender: self)
         }, failure: { (error: Error) in
             print(error)

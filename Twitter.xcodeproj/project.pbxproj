@@ -18,6 +18,9 @@
 		B7BB153E1F7B73B700AD7E1B /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB153D1F7B73B700AD7E1B /* Tweet.swift */; };
 		B7BB15411F7B7B8000AD7E1B /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB15401F7B7B8000AD7E1B /* TwitterClient.swift */; };
 		B7BB59EF1F7CCD8A00401A5F /* TweetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB59EE1F7CCD8A00401A5F /* TweetsViewController.swift */; };
+		B7BD73461F7ECD290090DC60 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BD73451F7ECD290090DC60 /* TweetCell.swift */; };
+		B7BD73491F7EEA570090DC60 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BD73481F7EEA570090DC60 /* DateUtil.swift */; };
+		B7BD734B1F7EF1B90090DC60 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BD734A1F7EF1B90090DC60 /* ComposeViewController.swift */; };
 		D1CE8ABE3E0A3B74AED80DEE /* Pods_TwitterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F0E675E7CFE11C0C12080A /* Pods_TwitterTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +54,9 @@
 		B7BB153D1F7B73B700AD7E1B /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		B7BB15401F7B7B8000AD7E1B /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
 		B7BB59EE1F7CCD8A00401A5F /* TweetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsViewController.swift; sourceTree = "<group>"; };
+		B7BD73451F7ECD290090DC60 /* TweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
+		B7BD73481F7EEA570090DC60 /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		B7BD734A1F7EF1B90090DC60 /* ComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		CF26C44B83046A50692FAD24 /* Pods-Twitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,6 +123,8 @@
 		B70EAB921F7B54DA0023C949 /* Twitter */ = {
 			isa = PBXGroup;
 			children = (
+				B7BD73471F7EEA440090DC60 /* Utils */,
+				B7BD73441F7ECCFB0090DC60 /* Views */,
 				B7BB153F1F7B7B5800AD7E1B /* API */,
 				B7BB153A1F7B723500AD7E1B /* Models */,
 				B75A090C1F7B613200993038 /* View Controllers */,
@@ -143,6 +151,7 @@
 			children = (
 				B70EAB951F7B54DA0023C949 /* LoginViewController.swift */,
 				B7BB59EE1F7CCD8A00401A5F /* TweetsViewController.swift */,
+				B7BD734A1F7EF1B90090DC60 /* ComposeViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -162,6 +171,22 @@
 				B7BB15401F7B7B8000AD7E1B /* TwitterClient.swift */,
 			);
 			name = API;
+			sourceTree = "<group>";
+		};
+		B7BD73441F7ECCFB0090DC60 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B7BD73451F7ECD290090DC60 /* TweetCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		B7BD73471F7EEA440090DC60 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				B7BD73481F7EEA570090DC60 /* DateUtil.swift */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,10 +402,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7BD734B1F7EF1B90090DC60 /* ComposeViewController.swift in Sources */,
 				B7BB15411F7B7B8000AD7E1B /* TwitterClient.swift in Sources */,
+				B7BD73461F7ECD290090DC60 /* TweetCell.swift in Sources */,
 				B70EAB961F7B54DA0023C949 /* LoginViewController.swift in Sources */,
 				B7BB59EF1F7CCD8A00401A5F /* TweetsViewController.swift in Sources */,
 				B70EAB941F7B54DA0023C949 /* AppDelegate.swift in Sources */,
+				B7BD73491F7EEA570090DC60 /* DateUtil.swift in Sources */,
 				B7BB153C1F7B728F00AD7E1B /* User.swift in Sources */,
 				B7BB153E1F7B73B700AD7E1B /* Tweet.swift in Sources */,
 			);
