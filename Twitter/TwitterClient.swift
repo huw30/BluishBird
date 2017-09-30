@@ -80,11 +80,41 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
 
     func composeNew(content: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
-        post("/1.1/statuses/update.json?status=\(content)", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+        post("1.1/statuses/update.json", parameters: ["status": content], progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let tweetDictionary = response as! [String: Any]
             let tweet = Tweet(dictionary: tweetDictionary)
             success(tweet)
         }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
+    }
+
+    func favorite(id: String, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        post("1.1/favorites/create.json", parameters: ["id": id], progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            success()
+        }) { (task: URLSessionDataTask?, error: Error) -> Void in
+            failure(error)
+        }
+    }
+    func unFavorite(id: String, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        post("1.1/favorites/destroy.json", parameters: ["id": id], progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            success()
+        }) { (task: URLSessionDataTask?, error: Error) -> Void in
+            failure(error)
+        }
+    }
+    
+    func retweet(id: String, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        post("1.1/statuses/retweet/\(id).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            success()
+        }) { (task: URLSessionDataTask?, error: Error) -> Void in
+            failure(error)
+        }
+    }
+    func unRetweet(id: String, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        post("1.1/statuses/unretweet/\(id).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            success()
+        }) { (task: URLSessionDataTask?, error: Error) -> Void in
             failure(error)
         }
     }

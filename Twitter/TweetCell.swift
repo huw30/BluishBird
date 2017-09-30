@@ -16,8 +16,13 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var tweetContent: UILabel!
     @IBOutlet weak var timestamp: UILabel!
+    @IBOutlet weak var controlGroupView: ControlGroupView!
 
-    var tweet: Tweet!
+    var tweet: Tweet! {
+        didSet {
+            setup()
+        }
+    }
     var user: User!
     
     override func awakeFromNib() {
@@ -26,8 +31,13 @@ class TweetCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        controlGroupView.tweet = tweet
+    }
 
     func setup() {
+        controlGroupView.tweet = tweet
         tweetContent.text = tweet.text
         nameLabel.text = tweet.user?.name
         if let screenname = tweet.user?.screenname {
@@ -39,5 +49,11 @@ class TweetCell: UITableViewCell {
         if let profileURL = tweet.user?.profileURL {
             avatarImage.setImageWith(profileURL)
         }
+    }
+}
+
+extension TweetCell: ControlGroupViewDelegate {
+    func controlGroupView(controlGroupView: ControlGroupView, didTweetChange tweet: Tweet) {
+        self.tweet = tweet
     }
 }
