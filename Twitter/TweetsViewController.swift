@@ -38,7 +38,8 @@ class TweetsViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationNavController = segue.destination as! UINavigationController
 
-        if segue.identifier == "ComposeViewSegue" {
+        if (segue.identifier == "ComposeViewSegue" ||
+            segue.identifier == "ReplySegue") {
             let composeController = destinationNavController.topViewController as? ComposeViewController
             composeController?.delegate = self
         }
@@ -49,6 +50,13 @@ class TweetsViewController: UIViewController {
                 let tweetDetailsController = destinationNavController.topViewController as? TweetDetailsViewController
                 tweetDetailsController?.tweet = currentCell!.tweet
             }
+        }
+
+        if segue.identifier == "ReplySegue" {
+            let btn = sender as! UIButton
+            let composeController = destinationNavController.topViewController as? ComposeViewController
+            let controlGroupView = btn.superview as! ControlGroupView
+            composeController?.inReplyTweet = controlGroupView.tweet
         }
     }
 

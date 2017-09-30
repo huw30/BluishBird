@@ -104,12 +104,15 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sfz-yy-mCO" customClass="ControlGroupView" customModule="Twitter" customModuleProvider="target">
-                                                    <rect key="frame" x="55.5" y="106.5" width="232.5" height="21"/>
+                                                    <rect key="frame" x="55.5" y="106.5" width="191" height="21"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ejA-Rh-Y01">
                                                             <rect key="frame" x="0.0" y="-3" width="46" height="30"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <state key="normal" title="Button"/>
+                                                            <connections>
+                                                                <segue destination="IrR-UN-ehL" kind="presentation" identifier="ReplySegue" id="wBX-Td-sTL"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TrO-74-qI8">
                                                             <rect key="frame" x="68" y="-3" width="46" height="30"/>
@@ -527,4 +530,7 @@
             <point key="canvasLocation" x="2230" y="489"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="wBX-Td-sTL"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -74,7 +74,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         if let maxId = maxId {
             parameters = ["max_id": maxId]
         }
-        print(parameters)
+
         get("1.1/statuses/home_timeline.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let tweetsDictionary = response as! [[String: Any]]
             let tweets = Tweet.tweets(with: tweetsDictionary)
@@ -84,8 +84,22 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
 
-    func composeNew(content: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
-        post("1.1/statuses/update.json", parameters: ["status": content], progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+    func showTweet(id: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        get("1.1/statuses/show.json", parameters: ["id": id], progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let tweetDictionary = response as! [String: Any]
+            let tweet = Tweet(dictionary: tweetDictionary)
+            success(tweet)
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+    }
+    func composeNew(content: String, replyTo: String?, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        var params = ["status": content]
+        if let replyTo = replyTo {
+            params["in_reply_to_status_id"] = replyTo
+        }
+
+        post("1.1/statuses/update.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let tweetDictionary = response as! [String: Any]
             let tweet = Tweet(dictionary: tweetDictionary)
             success(tweet)

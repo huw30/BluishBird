@@ -19,7 +19,7 @@ class ComposeViewController: UIViewController {
     @IBOutlet weak var newTweetContent: UITextView!
 
     var delegate: ComposeViewControllerDelegate?
-    var user: User?
+    var inReplyTweet: Tweet?
 
     @IBAction func onCancelBtn(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -29,8 +29,7 @@ class ComposeViewController: UIViewController {
         let content = newTweetContent.text
 
         if let content = content {
-            let escapedContent = content.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-            TwitterClient.sharedInstance.composeNew(content: escapedContent!, success: { (tweet: Tweet) in
+            TwitterClient.sharedInstance.composeNew(content: content, replyTo: nil, success: { (tweet: Tweet) in
                 self.delegate?.composeViewController?(composeViewController: self, didComposeNewTweet: tweet)
                 self.dismiss(animated: true, completion: nil)
             }, failure: { (error: Error) in
@@ -44,7 +43,6 @@ class ComposeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        user = User.currentUser
         setup()
     }
 
@@ -53,12 +51,20 @@ class ComposeViewController: UIViewController {
     }
 
     func setup() {
-        if let user = user {
-            if let profileURL = user.profileURL {
-                avatarImageView.setImageWith(profileURL)
-            }
-            nameLabel.text = user.name
-            screennameLabel.text = user.screenname
+        var user: User!
+
+        if let tweet = inReplyTweet {
+            user = tweet.user
+            newTweetContent.text = "@\(user.screenname!))"
+        } else {
+            user = User.currentUser
         }
+
+        if let profileURL = user.profileURL {
+            avatarImageView.setImageWith(profileURL)
+        }
+
+        nameLabel.text = user.name
+        screennameLabel.text = user.screenname
     }
 }
