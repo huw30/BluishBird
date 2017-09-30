@@ -25,11 +25,12 @@ class ComposeViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func onTweetBtn(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        let replyTo = inReplyTweet != nil ? inReplyTweet!.id : nil
+
         let content = newTweetContent.text
 
         if let content = content {
-            TwitterClient.sharedInstance.composeNew(content: content, replyTo: nil, success: { (tweet: Tweet) in
+            TwitterClient.sharedInstance.composeNew(content: content, replyTo: replyTo, success: { (tweet: Tweet) in
                 self.delegate?.composeViewController?(composeViewController: self, didComposeNewTweet: tweet)
                 self.dismiss(animated: true, completion: nil)
             }, failure: { (error: Error) in
@@ -55,7 +56,7 @@ class ComposeViewController: UIViewController {
 
         if let tweet = inReplyTweet {
             user = tweet.user
-            newTweetContent.text = "@\(user.screenname!))"
+            newTweetContent.text = "@\(user.screenname!)"
         } else {
             user = User.currentUser
         }

@@ -21,6 +21,7 @@ class TweetDetailsViewController: UIViewController {
     @IBOutlet weak var controlGroupView: ControlGroupView!
 
     var tweet: Tweet!
+    var parentController: TweetsViewController?
 
     @IBAction func onHomeBtn(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -51,6 +52,17 @@ class TweetDetailsViewController: UIViewController {
         }
         if let profileURL = tweet.user?.profileURL {
             avatarImageView.setImageWith(profileURL)
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationNavController = segue.destination as! UINavigationController
+
+        if segue.identifier == "ReplySegue" {
+            let btn = sender as! UIButton
+            let composeController = destinationNavController.topViewController as? ComposeViewController
+            let controlGroupView = btn.superview as! ControlGroupView
+            composeController?.inReplyTweet = controlGroupView.tweet
+            composeController?.delegate = parentController
         }
     }
 }

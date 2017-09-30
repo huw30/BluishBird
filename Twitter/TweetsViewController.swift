@@ -49,6 +49,7 @@ class TweetsViewController: UIViewController {
             if currentCell != nil {
                 let tweetDetailsController = destinationNavController.topViewController as? TweetDetailsViewController
                 tweetDetailsController?.tweet = currentCell!.tweet
+                tweetDetailsController?.parentController = self
             }
         }
 
