@@ -23,6 +23,7 @@
 		B7BD734B1F7EF1B90090DC60 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BD734A1F7EF1B90090DC60 /* ComposeViewController.swift */; };
 		B7BD734D1F7F35950090DC60 /* TweetDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BD734C1F7F35950090DC60 /* TweetDetailsViewController.swift */; };
 		B7BD734F1F7F4B380090DC60 /* ControlGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BD734E1F7F4B380090DC60 /* ControlGroupView.swift */; };
+		B7BD73531F7F755C0090DC60 /* InfiniteScrollActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BD73521F7F755C0090DC60 /* InfiniteScrollActivityView.swift */; };
 		D1CE8ABE3E0A3B74AED80DEE /* Pods_TwitterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F0E675E7CFE11C0C12080A /* Pods_TwitterTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		B7BD734A1F7EF1B90090DC60 /* ComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		B7BD734C1F7F35950090DC60 /* TweetDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetDetailsViewController.swift; sourceTree = "<group>"; };
 		B7BD734E1F7F4B380090DC60 /* ControlGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlGroupView.swift; sourceTree = "<group>"; };
+		B7BD73521F7F755C0090DC60 /* InfiniteScrollActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollActivityView.swift; sourceTree = "<group>"; };
 		CF26C44B83046A50692FAD24 /* Pods-Twitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -191,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				B7BD73481F7EEA570090DC60 /* DateUtil.swift */,
+				B7BD73521F7F755C0090DC60 /* InfiniteScrollActivityView.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -388,11 +391,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Twitter/Pods-Twitter-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworkActivityLogger/AFNetworkActivityLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/BDBOAuth1Manager/BDBOAuth1Manager.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworkActivityLogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BDBOAuth1Manager.framework",
 			);
@@ -409,6 +414,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7BD734B1F7EF1B90090DC60 /* ComposeViewController.swift in Sources */,
+				B7BD73531F7F755C0090DC60 /* InfiniteScrollActivityView.swift in Sources */,
 				B7BB15411F7B7B8000AD7E1B /* TwitterClient.swift in Sources */,
 				B7BD734D1F7F35950090DC60 /* TweetDetailsViewController.swift in Sources */,
 				B7BD73461F7ECD290090DC60 /* TweetCell.swift in Sources */,

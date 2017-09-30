@@ -8,6 +8,7 @@ target 'Twitter' do
   # Pods for Twitter
   pod 'AFNetworking'
   pod 'BDBOAuth1Manager'
+  pod 'AFNetworkActivityLogger', :git => 'https://github.com/AFNetworking/AFNetworkActivityLogger.git', :branch => '3_0_0'
   target 'TwitterTests' do
     inherit! :search_paths
     # Pods for testing
