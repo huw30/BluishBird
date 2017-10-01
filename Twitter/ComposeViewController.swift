@@ -88,6 +88,7 @@ extension ComposeViewController: UITextViewDelegate {
     }
     func textViewDidBeginEditing(_ textView: UITextView) {
         newTweetContent.layer.borderColor = Colors.twiterMain.cgColor
+        updateCharacterCount()
     }
     func textViewDidChange(_ textView: UITextView) {
         updateCharacterCount()

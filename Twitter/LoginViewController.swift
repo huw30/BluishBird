@@ -12,6 +12,7 @@ import BDBOAuth1Manager
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var getStarted: UIButton!
     @IBAction func onLogin(_ sender: Any) {
         TwitterClient.sharedInstance.login(success: {
             self.performSegue(withIdentifier: "loginSegue", sender: self)
@@ -21,7 +22,7 @@ class LoginViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        getStarted.layer.cornerRadius = 15
     }
 }
 
