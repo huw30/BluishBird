@@ -23,23 +23,27 @@ class ControlGroupView: UIView {
     
     override func didMoveToWindow() {
         super.didMoveToWindow()
+        setButtonImages()
+
         if (tweet.favorited) {
-            favoriteBtn.tintColor = UIColor.red
+            favoriteBtn.tintColor = Colors.favActive
         } else {
             favoriteBtn.tintColor = UIColor.gray
         }
 
         if (tweet.retweeted) {
-            retweetBtn.tintColor = UIColor.green
+            retweetBtn.tintColor = Colors.retweetActive
         } else {
             retweetBtn.tintColor = UIColor.gray
         }
+
+        replyBtn.tintColor = UIColor.gray
     }
 
     @IBAction func onFavBtn(sender: AnyObject) {
         if (!tweet.favorited) {
             TwitterClient.sharedInstance.favorite(id: tweet.id!, success: {
-                self.favoriteBtn.tintColor = UIColor.red
+                self.favoriteBtn.tintColor = Colors.favActive
                 self.tweet.favoritesCount += 1
                 self.tweet.favorited = true
                 self.delegate?.controlGroupView?(controlGroupView: self, didTweetChange: self.tweet)
@@ -61,7 +65,7 @@ class ControlGroupView: UIView {
     @IBAction func onRetweetBtn(sender: AnyObject) {
         if (!tweet.retweeted) {
             TwitterClient.sharedInstance.retweet(id: tweet.id!, success: {
-                self.retweetBtn.tintColor = UIColor.green
+                self.retweetBtn.tintColor = Colors.retweetActive
                 self.tweet.retweetCount += 1
                 self.tweet.retweeted = true
                 self.delegate?.controlGroupView?(controlGroupView: self, didTweetChange: self.tweet)
@@ -78,5 +82,19 @@ class ControlGroupView: UIView {
                 print(error.localizedDescription)
             })
         }
+    }
+
+    func setButtonImages() {
+        let origFavImage = UIImage(named: "favorite")
+        let tintedfavImage = origFavImage?.withRenderingMode(.alwaysTemplate)
+        favoriteBtn.setImage(tintedfavImage, for: .normal)
+        
+        let origReplyImage = UIImage(named: "reply")
+        let tintedReplyImage = origReplyImage?.withRenderingMode(.alwaysTemplate)
+        replyBtn.setImage(tintedReplyImage, for: .normal)
+        
+        let origRetweetImage = UIImage(named: "retweet")
+        let tintedRetweetImage = origRetweetImage?.withRenderingMode(.alwaysTemplate)
+        retweetBtn.setImage(tintedRetweetImage, for: .normal)
     }
 }

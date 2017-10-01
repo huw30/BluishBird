@@ -17,6 +17,7 @@ class ComposeViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var screennameLabel: UILabel!
     @IBOutlet weak var newTweetContent: UITextView!
+    @IBOutlet weak var countDownLabel: UILabel!
 
     var delegate: ComposeViewControllerDelegate?
     var inReplyTweet: Tweet?
@@ -65,7 +66,41 @@ class ComposeViewController: UIViewController {
             avatarImageView.setImageWith(profileURL)
         }
 
+        self.newTweetContent.delegate = self
+        self.countDownLabel.text = "140"
+        newTweetContent.becomeFirstResponder()
+
         nameLabel.text = user.name
-        screennameLabel.text = user.screenname
+        screennameLabel.text = "@\(user.screenname!)"
+        
+        newTweetContent.layer.borderColor = UIColor.gray.cgColor
+        newTweetContent.layer.borderWidth = 0.5
+        newTweetContent.layer.cornerRadius = 5
+
+        avatarImageView.layer.cornerRadius = 5
+        avatarImageView.clipsToBounds = true
+    }
+}
+
+extension ComposeViewController: UITextViewDelegate {
+    func updateCharacterCount() {
+        countDownLabel.text = "\((140) - self.newTweetContent.text.characters.count)"
+    }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        newTweetContent.layer.borderColor = Colors.twiterMain.cgColor
+    }
+    func textViewDidChange(_ textView: UITextView) {
+        updateCharacterCount()
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        newTweetContent.layer.borderColor = UIColor.gray.cgColor
+    }
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        updateCharacterCount()
+        return textView.text.characters.count +  (text.characters.count - range.length) <= 140
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.newTweetContent.endEditing(true)
     }
 }

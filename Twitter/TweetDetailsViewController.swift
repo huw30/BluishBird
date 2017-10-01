@@ -11,6 +11,7 @@ import UIKit
 class TweetDetailsViewController: UIViewController {
 
 
+    @IBOutlet weak var retweetedLabel: UILabel!
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var screennameLabel: UILabel!
@@ -19,6 +20,8 @@ class TweetDetailsViewController: UIViewController {
     @IBOutlet weak var retweetCount: UILabel!
     @IBOutlet weak var favoriteCount: UILabel!
     @IBOutlet weak var controlGroupView: ControlGroupView!
+    @IBOutlet weak var retweeterView: UIView!
+    @IBOutlet weak var retweeterViewHeightConstraint: NSLayoutConstraint!
 
     var tweet: Tweet!
     var parentController: TweetsViewController?
@@ -52,6 +55,17 @@ class TweetDetailsViewController: UIViewController {
         }
         if let profileURL = tweet.user?.profileURL {
             avatarImageView.setImageWith(profileURL)
+            avatarImageView.layer.cornerRadius = 5
+            avatarImageView.clipsToBounds = true
+        }
+
+        if let retweeter = tweet.retweeter {
+            retweetedLabel.text = "\(retweeter.name!) retweeted"
+            retweeterView.isHidden = false
+            retweeterViewHeightConstraint.constant = 16
+        } else {
+            retweeterView.isHidden = true
+            retweeterViewHeightConstraint.constant = 0
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

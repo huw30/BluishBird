@@ -17,27 +17,49 @@ class Tweet: NSObject {
     var favorited: Bool = false
     var retweeted: Bool = false
     var user: User?
+    var retweeter: User?
     
     init(dictionary: [String: Any]) {
         text = dictionary["text"] as? String
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
-        favoritesCount = (dictionary["favorites_count"] as? Int) ?? 0
+        favoritesCount = (dictionary["favorite_count"] as? Int) ?? 0
         favorited = (dictionary["favorited"] as? Bool) ?? false
         retweeted = (dictionary["retweeted"] as? Bool) ?? false
         id = dictionary["id_str"] as? String
-        
-        let timestampString = dictionary["created_at"] as? String
 
+        let userDictionary = dictionary["user"] as? [String: Any]
+        
+        if let userDictionary = userDictionary {
+            user = User(dictionary: userDictionary)
+        }
+
+        let timestampString = dictionary["created_at"] as? String
+        
         if let timestampString = timestampString {
             let formatter = DateFormatter()
             formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
             timestamp = formatter.date(from: timestampString)
         }
 
-        let userDictionary = dictionary["user"] as? [String: Any]
+        // check if current is a retweet
+        let retweetedTweetDic = dictionary["retweeted_status"] as? [String: Any]
+        if let retweetedTweetDic = retweetedTweetDic {
+            let timestampString = retweetedTweetDic["created_at"] as? String
+            
+            if let timestampString = timestampString {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
+                timestamp = formatter.date(from: timestampString)
+            }
 
-        if let userDictionary = userDictionary {
-            user = User(dictionary: userDictionary)
+            let originalTweeterDic = retweetedTweetDic["user"] as? [String : Any]
+            if let originalTweeterDic = originalTweeterDic {
+                let originalTweeter = User(dictionary: originalTweeterDic)
+                retweeter = user
+                user = originalTweeter
+            }
+
+            text = retweetedTweetDic["text"] as? String
         }
     }
 

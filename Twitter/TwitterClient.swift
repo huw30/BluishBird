@@ -59,6 +59,32 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
 
+    func getUser(userId: String!, success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
+        get("1.1/users/lookup.json", parameters: ["id", userId], progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let userDictionary = response as! [String: Any]
+            let user = User(dictionary: userDictionary)
+            success(user)
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+    }
+
+    func getFirstRetweeter(tweetId: String!, success: @escaping (String) -> (), failure: @escaping (Error) -> ()) {
+        var params = [String: Any]()
+        params["id"] = tweetId
+        params["count"] = 1
+        params["stringify_ids"] = true
+
+        get("1.1/statuses/retweeters/ids.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let response = response as! [String: Any]
+            let firstRetweeter = response["ids"] as! [String]
+            success(firstRetweeter.first!)
+
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+    }
+
     func getCurrentAccount(success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let userDictionary = response as! [String: Any]

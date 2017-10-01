@@ -10,13 +10,15 @@ import UIKit
 
 class TweetCell: UITableViewCell {
 
-    @IBOutlet weak var retweetLabel: UILabel!
+    @IBOutlet weak var retweetedLabel: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var tweetContent: UILabel!
     @IBOutlet weak var timestamp: UILabel!
     @IBOutlet weak var controlGroupView: ControlGroupView!
+    @IBOutlet weak var retweeterView: UIView!
+    @IBOutlet weak var retweeterViewHeightConstraint: NSLayoutConstraint!
 
     var tweet: Tweet! {
         didSet {
@@ -48,6 +50,17 @@ class TweetCell: UITableViewCell {
         }
         if let profileURL = tweet.user?.profileURL {
             avatarImage.setImageWith(profileURL)
+            avatarImage.layer.cornerRadius = 5
+            avatarImage.clipsToBounds = true
+        }
+
+        if let retweeter = tweet.retweeter {
+            retweetedLabel.text = "\(retweeter.name!) retweeted"
+            retweeterView.isHidden = false
+            retweeterViewHeightConstraint.constant = 16
+        } else {
+            retweeterView.isHidden = true
+            retweeterViewHeightConstraint.constant = 0
         }
     }
 }
