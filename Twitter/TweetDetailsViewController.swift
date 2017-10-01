@@ -36,6 +36,7 @@ class TweetDetailsViewController: UIViewController {
         super.viewDidLoad()
         controlGroupView.tweet = tweet
         controlGroupView.delegate = self
+        controlGroupView.setup()
         setup()
     }
     

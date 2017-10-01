@@ -20,9 +20,8 @@ class ControlGroupView: UIView {
 
     var tweet: Tweet!
     var delegate: ControlGroupViewDelegate?
-    
-    override func didMoveToWindow() {
-        super.didMoveToWindow()
+
+    func setup() {
         setButtonImages()
 
         if (tweet.favorited) {

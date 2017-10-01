@@ -33,13 +33,11 @@ class TweetCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        controlGroupView.tweet = tweet
-    }
 
     func setup() {
         controlGroupView.tweet = tweet
+        controlGroupView.setup()
+
         tweetContent.text = tweet.text
         nameLabel.text = tweet.user?.name
         if let screenname = tweet.user?.screenname {
