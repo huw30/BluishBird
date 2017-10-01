@@ -2,7 +2,7 @@
 
 **BluishBird** is a basic twitter app to read and compose tweets from the [Twitter API](https://apps.twitter.com/).
 
-Time spent: **X** hours spent in total
+Time spent: **20** hours spent in total
 
 ## User Stories
 
@@ -27,28 +27,34 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [x] Added dialog to communicate any errors
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. How does UI code separate with your business logic?
 
 ## Video Walkthrough
 
-Here's a walkthrough of implemented user stories:
+Here're walkthroughs of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/XMgtgs6.gif' title='Login and logout' width='' alt='Login' /><img src='https://i.imgur.com/JWR35JM.gif' title='List view' width='' alt='List' />
+<img src='https://i.imgur.com/G7k5xom.gif' title='Compose' width='' alt='Compose' />
+<img src='https://i.imgur.com/K9oPDM4.gif' title='Compose' width='' alt='Dialogs' />
+<img src='https://i.imgur.com/cD9ALrm.gif' title='Controls' width='' alt='Controls' />
+<img src='https://i.imgur.com/4Io8fkl.gif' title='Dialogs' width='' alt='Dialogs' />
+<img src='https://i.imgur.com/YnWVlWy.gif' title='Dialogs' width='' alt='Dialogs' />
+<img src='https://i.imgur.com/o1kwNac.jpeg' title='Dialogs' width='' alt='Dialogs' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+1. Getting Original tweet if the current tweet is a retweeter
+2. Dialogs presenting :)
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright Raina Wang
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
