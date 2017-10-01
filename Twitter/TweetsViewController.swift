@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class TweetsViewController: UIViewController {
 
@@ -66,6 +67,7 @@ class TweetsViewController: UIViewController {
     }
 
     func loadTweets(maxId: String?, isRefresh: Bool) {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         TwitterClient.sharedInstance.homeTimeline(maxId: maxId, success: { (tweets: [Tweet]) in
             if isRefresh {
                 self.tweets = tweets
@@ -77,9 +79,9 @@ class TweetsViewController: UIViewController {
             self.refreshControl.endRefreshing()
             self.isMoreDataLoading = false
             self.loadingMoreView!.stopAnimating()
+            MBProgressHUD.hide(for: self.view, animated: true)
         }, failure: { (error: Error) in
-            //TODO: AlertView
-            print(error.localizedDescription)
+            Dialog.show(controller: self, title: "Load Tweets Error", message: error.localizedDescription, buttonTitle: "Okay", image: nil)
         })
     }
 
@@ -105,6 +107,8 @@ extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
             cell.tweet = tweets[indexPath.row]
         }
 
+        cell.delegate = self
+
         return cell
     }
 
@@ -121,6 +125,12 @@ extension TweetsViewController: ComposeViewControllerDelegate {
     func composeViewController(composeViewController: ComposeViewController, didComposeNewTweet tweet: Tweet) {
         self.tweets?.insert(tweet, at: 0)
         self.tableView.reloadData()
+    }
+}
+
+extension TweetsViewController: TweetCellDelegate {
+    func showError(tweetCell: TweetCell, hasError error: Error) {
+        Dialog.show(controller: self, title: "Error", message: error.localizedDescription, buttonTitle: "ok", image: nil)
     }
 }
 

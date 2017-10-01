@@ -11,6 +11,7 @@ import UIKit
 
 @objc protocol ControlGroupViewDelegate {
     @objc optional func controlGroupView(controlGroupView: ControlGroupView, didTweetChange tweet: Tweet)
+    @objc optional func controlGroupViewError(controlGroupView: ControlGroupView, hasError error: Error)
 }
 
 class ControlGroupView: UIView {
@@ -47,7 +48,7 @@ class ControlGroupView: UIView {
                 self.tweet.favorited = true
                 self.delegate?.controlGroupView?(controlGroupView: self, didTweetChange: self.tweet)
             }, failure: { (error: Error) in
-                print(error.localizedDescription)
+                self.delegate?.controlGroupViewError?(controlGroupView: self, hasError: error)
             })
         } else {
             TwitterClient.sharedInstance.unFavorite(id: tweet.id!, success: {
@@ -56,7 +57,7 @@ class ControlGroupView: UIView {
                 self.tweet.favorited = false
                 self.delegate?.controlGroupView?(controlGroupView: self, didTweetChange: self.tweet)
             }, failure: { (error: Error) in
-                print(error.localizedDescription)
+                self.delegate?.controlGroupViewError?(controlGroupView: self, hasError: error)
             })
         }
     }
@@ -69,7 +70,7 @@ class ControlGroupView: UIView {
                 self.tweet.retweeted = true
                 self.delegate?.controlGroupView?(controlGroupView: self, didTweetChange: self.tweet)
             }, failure: { (error: Error) in
-                print(error.localizedDescription)
+                self.delegate?.controlGroupViewError?(controlGroupView: self, hasError: error)
             })
         } else {
             TwitterClient.sharedInstance.unRetweet(id: tweet.id!, success: {
@@ -78,7 +79,7 @@ class ControlGroupView: UIView {
                 self.tweet.retweeted = false
                 self.delegate?.controlGroupView?(controlGroupView: self, didTweetChange: self.tweet)
             }, failure: { (error: Error) in
-                print(error.localizedDescription)
+                self.delegate?.controlGroupViewError?(controlGroupView: self, hasError: error)
             })
         }
     }

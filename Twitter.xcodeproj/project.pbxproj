@@ -15,6 +15,7 @@
 		B70EAB9E1F7B54DA0023C949 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B70EAB9C1F7B54DA0023C949 /* LaunchScreen.storyboard */; };
 		B70EABA91F7B54DA0023C949 /* TwitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70EABA81F7B54DA0023C949 /* TwitterTests.swift */; };
 		B71CB1FF1F80A284009BF006 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71CB1FE1F80A284009BF006 /* Colors.swift */; };
+		B71CB2011F819D54009BF006 /* DialogBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71CB2001F819D54009BF006 /* DialogBox.swift */; };
 		B7BB153C1F7B728F00AD7E1B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB153B1F7B728F00AD7E1B /* User.swift */; };
 		B7BB153E1F7B73B700AD7E1B /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB153D1F7B73B700AD7E1B /* Tweet.swift */; };
 		B7BB15411F7B7B8000AD7E1B /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB15401F7B7B8000AD7E1B /* TwitterClient.swift */; };
@@ -55,6 +56,7 @@
 		B70EABA81F7B54DA0023C949 /* TwitterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterTests.swift; sourceTree = "<group>"; };
 		B70EABAA1F7B54DA0023C949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B71CB1FE1F80A284009BF006 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		B71CB2001F819D54009BF006 /* DialogBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogBox.swift; sourceTree = "<group>"; };
 		B7BB153B1F7B728F00AD7E1B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B7BB153D1F7B73B700AD7E1B /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		B7BB15401F7B7B8000AD7E1B /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				B7BD73481F7EEA570090DC60 /* DateUtil.swift */,
 				B7BD73521F7F755C0090DC60 /* InfiniteScrollActivityView.swift */,
 				B71CB1FE1F80A284009BF006 /* Colors.swift */,
+				B71CB2001F819D54009BF006 /* DialogBox.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -397,12 +400,16 @@
 				"${BUILT_PRODUCTS_DIR}/AFNetworkActivityLogger/AFNetworkActivityLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/BDBOAuth1Manager/BDBOAuth1Manager.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworkActivityLogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BDBOAuth1Manager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -425,6 +432,7 @@
 				B7BB59EF1F7CCD8A00401A5F /* TweetsViewController.swift in Sources */,
 				B7BD734F1F7F4B380090DC60 /* ControlGroupView.swift in Sources */,
 				B71CB1FF1F80A284009BF006 /* Colors.swift in Sources */,
+				B71CB2011F819D54009BF006 /* DialogBox.swift in Sources */,
 				B70EAB941F7B54DA0023C949 /* AppDelegate.swift in Sources */,
 				B7BD73491F7EEA570090DC60 /* DateUtil.swift in Sources */,
 				B7BB153C1F7B728F00AD7E1B /* User.swift in Sources */,

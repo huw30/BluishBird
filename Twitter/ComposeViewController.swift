@@ -35,11 +35,10 @@ class ComposeViewController: UIViewController {
                 self.delegate?.composeViewController?(composeViewController: self, didComposeNewTweet: tweet)
                 self.dismiss(animated: true, completion: nil)
             }, failure: { (error: Error) in
-                //TODO: alert view
-                print(error.localizedDescription)
+                Dialog.show(controller: self, title: "New Tweet Error", message: error.localizedDescription, buttonTitle: "Okay", image: nil)
             })
         } else {
-            //TODO: no content alert view
+            Dialog.show(controller: self, title: "No content", message: "Please add content to your tweet", buttonTitle: "Okay", image: nil)
         }
     }
 

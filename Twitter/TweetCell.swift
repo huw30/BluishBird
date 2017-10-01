@@ -8,6 +8,10 @@
 
 import UIKit
 
+@objc protocol TweetCellDelegate {
+    @objc optional func showError(tweetCell: TweetCell, hasError error: Error)
+}
+
 class TweetCell: UITableViewCell {
 
     @IBOutlet weak var retweetedLabel: UILabel!
@@ -19,6 +23,8 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var controlGroupView: ControlGroupView!
     @IBOutlet weak var retweeterView: UIView!
     @IBOutlet weak var retweeterViewHeightConstraint: NSLayoutConstraint!
+
+    var delegate: TweetCellDelegate?
 
     var tweet: Tweet! {
         didSet {
@@ -37,6 +43,7 @@ class TweetCell: UITableViewCell {
     func setup() {
         controlGroupView.tweet = tweet
         controlGroupView.setup()
+        controlGroupView.delegate = self
 
         tweetContent.text = tweet.text
         nameLabel.text = tweet.user?.name
@@ -66,5 +73,9 @@ class TweetCell: UITableViewCell {
 extension TweetCell: ControlGroupViewDelegate {
     func controlGroupView(controlGroupView: ControlGroupView, didTweetChange tweet: Tweet) {
         self.tweet = tweet
+    }
+
+    func controlGroupViewError(controlGroupView: ControlGroupView, hasError error: Error) {
+        self.delegate?.showError?(tweetCell: self, hasError: error)
     }
 }

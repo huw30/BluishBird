@@ -17,7 +17,7 @@ class LoginViewController: UIViewController {
         TwitterClient.sharedInstance.login(success: {
             self.performSegue(withIdentifier: "loginSegue", sender: self)
         }, failure: { (error: Error) in
-            print(error)
+            Dialog.show(controller: self, title: "Login Error", message: error.localizedDescription, buttonTitle: "Okay", image: nil)
         })
     }
     override func viewDidLoad() {

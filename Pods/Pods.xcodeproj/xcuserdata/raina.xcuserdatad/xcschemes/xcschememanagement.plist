@@ -19,12 +19,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Twitter.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-TwitterTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PopupDialog.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -37,7 +47,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5E7AA93D218A628C31394F50B98B7F2F</key>
+		<key>41FA54D12162DAD51D02FC58A2CD5034</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5BA691D3913DBB9CB8362E11EB81F215</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5BA9903343B5D327C95A52F32E652041</key>
 		<dict>
 			<key>primary</key>
 			<true/>
