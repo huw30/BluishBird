@@ -37,15 +37,11 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here're walkthroughs of implemented user stories:
 
-<img src='https://i.imgur.com/XMgtgs6.gif' title='Login and logout' width='' alt='Login' />
-<img src='https://i.imgur.com/JWR35JM.gif' title='List view' width='' alt='List' />
-
+<img src='https://i.imgur.com/XMgtgs6.gif' title='Login and logout' width='' alt='Login' /><img src='https://i.imgur.com/JWR35JM.gif' title='List view' width='' alt='List' />
 <img src='https://i.imgur.com/G7k5xom.gif' title='Compose' width='' alt='Compose' />
 <img src='https://i.imgur.com/K9oPDM4.gif' title='Compose' width='' alt='Dialogs' />
-
 <img src='https://i.imgur.com/cD9ALrm.gif' title='Controls' width='' alt='Controls' />
 <img src='https://i.imgur.com/4Io8fkl.gif' title='Dialogs' width='' alt='Dialogs' />
-
 <img src='https://i.imgur.com/YnWVlWy.gif' title='Dialogs' width='' alt='Dialogs' />
 <img src='https://i.imgur.com/o1kwNac.jpeg' title='Dialogs' width='' alt='Dialogs' />
 
