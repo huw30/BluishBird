@@ -32,13 +32,15 @@ class ComposeViewController: UIViewController {
 
         if let content = content {
             TwitterClient.sharedInstance.composeNew(content: content, replyTo: replyTo, success: { (tweet: Tweet) in
-                self.delegate?.composeViewController?(composeViewController: self, didComposeNewTweet: tweet)
-                self.dismiss(animated: true, completion: nil)
+                Dialog.show(controller: self, title: "Success", message: "Tweet added", buttonTitle: nil, image: nil, dismissAfter: 5, completion: { () in
+                        self.delegate?.composeViewController?(composeViewController: self, didComposeNewTweet: tweet)
+                        self.dismiss(animated: true, completion: nil)
+                })
             }, failure: { (error: Error) in
-                Dialog.show(controller: self, title: "New Tweet Error", message: error.localizedDescription, buttonTitle: "Okay", image: nil)
+                Dialog.show(controller: self, title: "New Tweet Error", message: error.localizedDescription, buttonTitle: "Okay", image: nil, dismissAfter: nil, completion: nil)
             })
         } else {
-            Dialog.show(controller: self, title: "No content", message: "Please add content to your tweet", buttonTitle: "Okay", image: nil)
+            Dialog.show(controller: self, title: "No content", message: "Please add content to your tweet", buttonTitle: "Okay", image: nil, dismissAfter: nil, completion: nil)
         }
     }
 

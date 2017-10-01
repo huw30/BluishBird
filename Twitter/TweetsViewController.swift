@@ -81,7 +81,7 @@ class TweetsViewController: UIViewController {
             self.loadingMoreView!.stopAnimating()
             MBProgressHUD.hide(for: self.view, animated: true)
         }, failure: { (error: Error) in
-            Dialog.show(controller: self, title: "Load Tweets Error", message: error.localizedDescription, buttonTitle: "Okay", image: nil)
+            Dialog.show(controller: self, title: "Load Tweets Error", message: error.localizedDescription, buttonTitle: "Okay", image: nil, dismissAfter: nil, completion: nil)
         })
     }
 
@@ -130,7 +130,7 @@ extension TweetsViewController: ComposeViewControllerDelegate {
 
 extension TweetsViewController: TweetCellDelegate {
     func showError(tweetCell: TweetCell, hasError error: Error) {
-        Dialog.show(controller: self, title: "Error", message: error.localizedDescription, buttonTitle: "ok", image: nil)
+        Dialog.show(controller: self, title: "Error", message: error.localizedDescription, buttonTitle: "ok", image: nil, dismissAfter: nil, completion: nil)
     }
 }
 

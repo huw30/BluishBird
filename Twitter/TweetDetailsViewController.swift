@@ -89,6 +89,6 @@ extension TweetDetailsViewController: ControlGroupViewDelegate {
     }
 
     func controlGroupViewError(controlGroupView: ControlGroupView, hasError error: Error) {
-        Dialog.show(controller: self, title: "error", message: error.localizedDescription, buttonTitle: "Ok", image: nil)
+        Dialog.show(controller: self, title: "error", message: error.localizedDescription, buttonTitle: "Ok", image: nil, dismissAfter: nil, completion: nil)
     }
 }
