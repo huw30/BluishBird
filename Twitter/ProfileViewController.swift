@@ -9,19 +9,17 @@
 import UIKit
 import MBProgressHUD
 
-class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TweetCellDelegate {
+class ProfileViewController: UIViewController, TweetCellDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var profileBackground: UIImageView!
     @IBOutlet weak var avatarView: UIImageView!
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var screenname: UILabel!
     @IBOutlet weak var tweetCount: UILabel!
     @IBOutlet weak var followingCount: UILabel!
     @IBOutlet weak var followerCount: UILabel!
     @IBOutlet weak var backButton: UIBarButtonItem!
-
+    @IBOutlet weak var userDetailsScrollView: UIScrollView!
     @IBOutlet weak var profileBgHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var profileBgTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var userDetailControl: UIPageControl!
 
     var tweets: [Tweet]?
     var user: User!
@@ -34,6 +32,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
+
         if user == nil {
             user = User.currentUser
             self.backButton.title = ""
@@ -41,22 +40,47 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         setup()
     }
+
+    func loadSlideView() {
+        userDetailsScrollView.delegate = self
+        userDetailsScrollView.isPagingEnabled = true
+        userDetailsScrollView.contentSize = CGSize(width: 345 * 2, height: 50)
+        userDetailsScrollView.showsHorizontalScrollIndicator = false
+
+        if let nameView = Bundle.main.loadNibNamed("Slide", owner: self, options: nil)?.first as? Slide {
+            nameView.name.text = user.name
+            nameView.screenname.text = "@\(user.screenname!)"
+            nameView.tagline.isHidden = true
+            nameView.frame.size.width = 345
+            nameView.frame.origin.x = 0
+            userDetailsScrollView.addSubview(nameView)
+        }
+        if let tagLineView = Bundle.main.loadNibNamed("Slide", owner: self, options: nil)?.first as? Slide {
+            tagLineView.tagline.text = user.tagline
+            tagLineView.name.isHidden = true
+            tagLineView.screenname.isHidden = true
+            tagLineView.frame.size.width = 345
+            tagLineView.frame.origin.x = 345
+            userDetailsScrollView.addSubview(tagLineView)
+        }
+    }
+
     func setup() {
-        name.text = user.name
-        screenname.text = "@" + user.screenname!
         avatarView.setImageWith(user.profileURL!)
         avatarView.layer.cornerRadius = 5
         avatarView.clipsToBounds = true
         tweetCount.text = "\(user.statusesCount)"
         followingCount.text = "\(user.friendsCount)"
         followerCount.text = "\(user.followersCount)"
+
         if user.profileBackgroundURL != nil {
             profileBackground.setImageWith(user.profileBackgroundURL!)
             profileBackground.contentMode = .scaleAspectFill
         } else {
             profileBackground.backgroundColor = Colors.hexStringToUIColor(hex: user.profileBackgroundColor!)
         }
-        
+
+        loadSlideView()
         loadTweets(maxId: nil, isRefresh: true)
     }
 
@@ -76,6 +100,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         })
     }
 
+    @IBAction func onPageControlTap(_ sender: Any) {
+        let x = CGFloat(userDetailControl.currentPage) * userDetailsScrollView.frame.size.width
+        userDetailsScrollView.setContentOffset(CGPoint(x:x, y:0), animated: true)
+    }
+}
+// MARK: Table delegate methods
+extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let tweets = self.tweets {
             return tweets.count
@@ -102,15 +133,18 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 }
 
+// MARK: Scroll view delegate
 extension ProfileViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset.y
-        print(offset)
-        if offset < -30 {
-            self.profileBgHeightConstraint.constant += abs(offset/100)
-        } else if offset > 0 {
+        let page = scrollView.contentOffset.x / scrollView.frame.size.width
+        userDetailControl.currentPage = Int(page)
 
+        let offset = scrollView.contentOffset.y
+
+        if offset < -30 {
+            self.profileBgHeightConstraint.constant += abs(offset/10)
         }
+        self.view.layoutIfNeeded()
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -126,10 +160,9 @@ extension ProfileViewController: UIScrollViewDelegate {
     }
     func animateHeader() {
         self.profileBgHeightConstraint.constant = 125
-        self.view.layoutIfNeeded()
-//        UIView.animate(withDuration: 0.3, animations: {
-//            self.view.layoutIfNeeded()
-//        }, completion: nil)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
 }
 
