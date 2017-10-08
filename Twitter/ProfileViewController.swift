@@ -16,13 +16,14 @@ class ProfileViewController: UIViewController, TweetCellDelegate {
     @IBOutlet weak var tweetCount: UILabel!
     @IBOutlet weak var followingCount: UILabel!
     @IBOutlet weak var followerCount: UILabel!
-    @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var userDetailsScrollView: UIScrollView!
     @IBOutlet weak var profileBgHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var userDetailControl: UIPageControl!
 
     var tweets: [Tweet]?
     var user: User!
+    var isMoreDataLoading: Bool = false
+    var loadingMoreView: InfiniteScrollActivityView?
 
     @IBAction func onBackButton(_ sender: Any) {
         navigationController?.popViewController(animated: true)
@@ -35,8 +36,7 @@ class ProfileViewController: UIViewController, TweetCellDelegate {
 
         if user == nil {
             user = User.currentUser
-            self.backButton.title = ""
-            self.backButton.isEnabled = false
+            navigationItem.leftBarButtonItem = nil
         }
         setup()
     }
@@ -82,11 +82,12 @@ class ProfileViewController: UIViewController, TweetCellDelegate {
 
         loadSlideView()
         loadTweets(maxId: nil, isRefresh: true)
+        addLoadingView()
     }
 
     func loadTweets(maxId: String?, isRefresh: Bool) {
         MBProgressHUD.showAdded(to: self.view, animated: true)
-        TwitterClient.sharedInstance.userTimeline(screenname: user.screenname!, maxId: nil, success: { (tweets: [Tweet]) in
+        TwitterClient.sharedInstance.userTimeline(screenname: user.screenname!, maxId: maxId, success: { (tweets: [Tweet]) in
             if isRefresh {
                 self.tweets = tweets
             } else {
@@ -98,6 +99,18 @@ class ProfileViewController: UIViewController, TweetCellDelegate {
         }, failure: { (error: Error) in
             Dialog.show(controller: self, title: "Load Tweets Error", message: error.localizedDescription, buttonTitle: "Okay", image: nil, dismissAfter: nil, completion: nil)
         })
+    }
+
+    func addLoadingView() {
+        // Set up Infinite Scroll loading indicator
+        let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.isHidden = true
+        tableView.addSubview(loadingMoreView!)
+        
+        var insets = tableView.contentInset
+        insets.bottom += InfiniteScrollActivityView.defaultHeight
+        tableView.contentInset = insets
     }
 
     @IBAction func onPageControlTap(_ sender: Any) {
@@ -138,6 +151,7 @@ extension ProfileViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let page = scrollView.contentOffset.x / scrollView.frame.size.width
         userDetailControl.currentPage = Int(page)
+        animateProfileBGImageView(page: Int(page))
 
         let offset = scrollView.contentOffset.y
 
@@ -145,6 +159,8 @@ extension ProfileViewController: UIScrollViewDelegate {
             self.profileBgHeightConstraint.constant += abs(offset/10)
         }
         self.view.layoutIfNeeded()
+
+        loadMore(scrollView)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -163,6 +179,43 @@ extension ProfileViewController: UIScrollViewDelegate {
         UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
+    }
+    func animateProfileBGImageView(page: Int) {
+        UIView.animate(withDuration: 0.3, animations: {
+            if page == 0 {
+                self.profileBackground.alpha = 1
+            } else {
+                self.profileBackground.alpha = 0.5
+            }
+        }, completion: nil)
+    }
+    func loadMore(_ scrollView: UIScrollView) {
+        if tweets != nil && tweets!.count < 19 {
+            isMoreDataLoading = true
+        }
+        if (!isMoreDataLoading) {
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
+                isMoreDataLoading = true
+                
+                // Update position of loadingMoreView, and start loading indicator
+                let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+                loadingMoreView?.frame = frame
+                loadingMoreView!.startAnimating()
+                
+                var maxId: String?
+                
+                if tweets != nil && tweets!.count > 0 {
+                    let lastTweet = tweets![tweets!.count - 1]
+                    maxId = lastTweet.id
+                }
+                
+                loadTweets(maxId: maxId, isRefresh: false)
+            }
+        }
+
     }
 }
 

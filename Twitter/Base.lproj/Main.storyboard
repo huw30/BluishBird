@@ -281,7 +281,7 @@
                                 <action selector="onLogout:" destination="wQs-8n-XfT" id="V3C-eH-cLc"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Compose" id="zJK-1h-VwT">
+                        <barButtonItem key="rightBarButtonItem" image="compose" id="zJK-1h-VwT">
                             <color key="tintColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <segue destination="IrR-UN-ehL" kind="presentation" identifier="ComposeViewSegue" id="ORB-4J-TEw"/>
@@ -498,7 +498,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Tweet" id="z65-pp-Rrv">
-                        <barButtonItem key="leftBarButtonItem" title="&lt; Home" id="nAq-kj-Bgd">
+                        <barButtonItem key="leftBarButtonItem" image="back" id="nAq-kj-Bgd">
                             <color key="tintColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="onHomeBtn:" destination="5Nu-pc-fhF" id="71L-w8-J5w"/>
@@ -586,13 +586,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="EQn-TK-egh">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="9sJ-Mc-Mdd">
+                        <barButtonItem key="leftBarButtonItem" image="trash" id="9sJ-Mc-Mdd">
                             <color key="tintColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="onCancelBtn:" destination="80J-jh-DQY" id="PIm-wM-2xy"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Tweet" id="geG-C0-cUk">
+                        <barButtonItem key="rightBarButtonItem" image="send" id="geG-C0-cUk">
                             <color key="tintColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="onTweetBtn:" destination="80J-jh-DQY" id="jDb-zJ-b2H"/>
@@ -785,7 +785,6 @@
                                                     <color key="pageIndicatorTintColor" red="0.81144386530000001" green="0.82412713770000001" blue="0.79496914149999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="currentPageIndicatorTintColor" red="0.2781485319" green="0.29067894820000001" blue="0.2657591701" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <connections>
-                                                        <action selector="onPageControlTap:" destination="2Ol-zW-O8E" eventType="touchUpInside" id="BvC-gl-2qF"/>
                                                         <action selector="onPageControlTap:" destination="2Ol-zW-O8E" eventType="valueChanged" id="akU-5J-Fha"/>
                                                     </connections>
                                                 </pageControl>
@@ -1047,7 +1046,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="QOQ-wL-YVd">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="zbC-66-4tY">
+                        <barButtonItem key="leftBarButtonItem" image="back" id="zbC-66-4tY">
                             <color key="tintColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="onBackButton:" destination="2Ol-zW-O8E" id="ji0-s0-WrY"/>
@@ -1056,7 +1055,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="avatarView" destination="yBk-Vc-mok" id="FdE-iy-fyz"/>
-                        <outlet property="backButton" destination="zbC-66-4tY" id="vIl-eV-RsJ"/>
                         <outlet property="followerCount" destination="bpm-4C-wOh" id="Fjz-3e-bWJ"/>
                         <outlet property="followingCount" destination="WN5-Sj-y5Q" id="2xs-ML-o8m"/>
                         <outlet property="profileBackground" destination="MRn-7A-KHx" id="Ryc-GP-BSj"/>
@@ -1349,7 +1347,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MentionsNavController" automaticallyAdjustsScrollViewInsets="NO" id="HPf-fP-rjV" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Cb4-Ve-rMl">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cb4-Ve-rMl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.2333780527" green="0.64601975680000001" blue="0.91624313589999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1365,13 +1363,17 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back" width="24" height="24"/>
+        <image name="compose" width="24" height="24"/>
         <image name="favorite" width="128" height="128"/>
         <image name="reply" width="128" height="128"/>
         <image name="retweet" width="128" height="128"/>
+        <image name="send" width="32" height="32"/>
+        <image name="trash" width="24" height="24"/>
         <image name="twitterLogo" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ORB-4J-TEw"/>
-        <segue reference="9qJ-Eu-8b4"/>
+        <segue reference="S2I-S9-D32"/>
+        <segue reference="kto-Jh-X30"/>
     </inferredMetricsTieBreakers>
 </document>
