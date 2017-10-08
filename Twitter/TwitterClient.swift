@@ -126,6 +126,20 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
 
+    func mentionsTimeline(maxId: String?, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+        var parameters: [String: Any]?
+        if let maxId = maxId {
+            parameters = ["max_id": maxId]
+        }
+        get("1.1/statuses/mentions_timeline.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let tweetsDictionary = response as! [[String: Any]]
+            let tweets = Tweet.tweets(with: tweetsDictionary)
+            success(tweets)
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+    }
+
     func showTweet(id: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
         get("1.1/statuses/show.json", parameters: ["id": id], progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let tweetDictionary = response as! [String: Any]

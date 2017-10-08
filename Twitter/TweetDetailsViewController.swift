@@ -24,7 +24,7 @@ class TweetDetailsViewController: UIViewController {
     @IBOutlet weak var retweeterViewHeightConstraint: NSLayoutConstraint!
 
     var tweet: Tweet!
-    var parentController: TweetsViewController?
+    var parentController: TweetListViewController?
 
     @IBAction func onHomeBtn(_ sender: Any) {
         dismiss(animated: true, completion: nil)

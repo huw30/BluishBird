@@ -17,9 +17,11 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
 
-    private var profileNavController: UINavigationController!
-    private var tweetsNavController: UINavigationController!
+    private var profileNavController: UIViewController!
+    private var tweetsNavController: UIViewController!
+    private var mentionsNavController: UIViewController!
     private var viewControllers: [UIViewController] = []
+    private var menuTitles = ["profile", "timeline", "mentions"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +30,12 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.estimatedRowHeight = 100
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        profileNavController = storyboard.instantiateViewController(withIdentifier: "ProfileNavigationController") as! UINavigationController
-        tweetsNavController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController") as! UINavigationController
+        profileNavController = storyboard.instantiateViewController(withIdentifier: "ProfileNavigationController")
+        tweetsNavController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+        mentionsNavController = storyboard.instantiateViewController(withIdentifier: "MentionsNavController")
         viewControllers.append(profileNavController)
         viewControllers.append(tweetsNavController)
+        viewControllers.append(mentionsNavController)
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -40,15 +44,14 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return menuTitles.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell") as? MenuCell else {
             return MenuCell()
         }
-        let titles = ["profile", "timeline"]
-        cell.menuTitleLabel.text = titles[indexPath.row]
+        cell.menuTitleLabel.text = menuTitles[indexPath.row]
         return cell
     }
 }

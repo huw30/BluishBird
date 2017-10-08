@@ -10,6 +10,7 @@ import UIKit
 
 @objc protocol TweetCellDelegate {
     @objc optional func showError(tweetCell: TweetCell, hasError error: Error)
+    @objc optional func goToProfile(tweetCell: TweetCell)
 }
 
 class TweetCell: UITableViewCell {
@@ -35,6 +36,10 @@ class TweetCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        let tap = UITapGestureRecognizer(target: self, action:#selector(handleTap))
+        tap.delegate = self
+        avatarImage.isUserInteractionEnabled = true
+        avatarImage.addGestureRecognizer(tap)
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -67,6 +72,9 @@ class TweetCell: UITableViewCell {
             retweeterView.isHidden = true
             retweeterViewHeightConstraint.constant = 0
         }
+    }
+    func handleTap() {
+        delegate?.goToProfile?(tweetCell: self)
     }
 }
 
