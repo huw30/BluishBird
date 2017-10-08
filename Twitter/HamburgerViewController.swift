@@ -46,6 +46,7 @@ class HamburgerViewController: UIViewController {
         activeVC.willMove(toParentViewController: self)
         parentView.addSubview(activeVC.view)
         activeVC.didMove(toParentViewController: self)
+        activeVC.viewDidLoad()
     }
     func removeInactiveVC(inactiveVC: UIViewController?) {
         inactiveVC?.willMove(toParentViewController: nil)

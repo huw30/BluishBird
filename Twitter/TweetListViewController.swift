@@ -12,11 +12,7 @@ import MBProgressHUD
 class TweetListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBAction func onLogout(_ sender: Any) {
-        TwitterClient.sharedInstance.logout()
-    }
-    
+
     var refreshControl = UIRefreshControl()
     var tweets: [Tweet]?
     

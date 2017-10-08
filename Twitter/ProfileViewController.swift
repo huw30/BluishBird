@@ -9,8 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-class ProfileViewController: UIViewController, TweetCellDelegate {
-    @IBOutlet weak var tableView: UITableView!
+class ProfileViewController: TweetListViewController {
     @IBOutlet weak var profileBackground: UIImageView!
     @IBOutlet weak var avatarView: UIImageView!
     @IBOutlet weak var tweetCount: UILabel!
@@ -19,25 +18,21 @@ class ProfileViewController: UIViewController, TweetCellDelegate {
     @IBOutlet weak var userDetailsScrollView: UIScrollView!
     @IBOutlet weak var profileBgHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var userDetailControl: UIPageControl!
+    @IBOutlet weak var tableHeaderView: UIView!
 
-    var tweets: [Tweet]?
     var user: User!
-    var isMoreDataLoading: Bool = false
-    var loadingMoreView: InfiniteScrollActivityView?
 
     @IBAction func onBackButton(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 120
-
         if user == nil {
             user = User.currentUser
             navigationItem.leftBarButtonItem = nil
         }
+
+        super.viewDidLoad()
         setup()
     }
 
@@ -80,12 +75,12 @@ class ProfileViewController: UIViewController, TweetCellDelegate {
             profileBackground.backgroundColor = Colors.hexStringToUIColor(hex: user.profileBackgroundColor!)
         }
 
+        tableHeaderView.addBottomBorderWithColor(color: Colors.hexStringToUIColor(hex: "b3b5b7"), width: 0.5)
+        navigationItem.title = user.name
         loadSlideView()
-        loadTweets(maxId: nil, isRefresh: true)
-        addLoadingView()
     }
 
-    func loadTweets(maxId: String?, isRefresh: Bool) {
+    override func loadTweets(maxId: String?, isRefresh: Bool) {
         MBProgressHUD.showAdded(to: self.view, animated: true)
         TwitterClient.sharedInstance.userTimeline(screenname: user.screenname!, maxId: maxId, success: { (tweets: [Tweet]) in
             if isRefresh {
@@ -95,60 +90,21 @@ class ProfileViewController: UIViewController, TweetCellDelegate {
             }
 
             self.tableView.reloadData()
+            self.isMoreDataLoading = false
+            self.refreshControl.endRefreshing()
+            self.loadingMoreView!.stopAnimating()
             MBProgressHUD.hide(for: self.view, animated: true)
         }, failure: { (error: Error) in
             Dialog.show(controller: self, title: "Load Tweets Error", message: error.localizedDescription, buttonTitle: "Okay", image: nil, dismissAfter: nil, completion: nil)
         })
     }
 
-    func addLoadingView() {
-        // Set up Infinite Scroll loading indicator
-        let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
-        loadingMoreView = InfiniteScrollActivityView(frame: frame)
-        loadingMoreView!.isHidden = true
-        tableView.addSubview(loadingMoreView!)
-        
-        var insets = tableView.contentInset
-        insets.bottom += InfiniteScrollActivityView.defaultHeight
-        tableView.contentInset = insets
-    }
-
     @IBAction func onPageControlTap(_ sender: Any) {
         let x = CGFloat(userDetailControl.currentPage) * userDetailsScrollView.frame.size.width
         userDetailsScrollView.setContentOffset(CGPoint(x:x, y:0), animated: true)
     }
-}
-// MARK: Table delegate methods
-extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let tweets = self.tweets {
-            return tweets.count
-        }
 
-        return 0
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell") as? TweetCell else {
-            return TweetCell()
-        }
-        if let tweets = self.tweets {
-            cell.tweet = tweets[indexPath.row]
-        }
-
-        cell.delegate = self
-
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-
-// MARK: Scroll view delegate
-extension ProfileViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let page = scrollView.contentOffset.x / scrollView.frame.size.width
         userDetailControl.currentPage = Int(page)
         animateProfileBGImageView(page: Int(page))
@@ -157,31 +113,27 @@ extension ProfileViewController: UIScrollViewDelegate {
 
         if offset < -30 {
             self.profileBgHeightConstraint.constant += abs(offset/10)
+            self.view.layoutIfNeeded()
         }
-        self.view.layoutIfNeeded()
 
         loadMore(scrollView)
     }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if self.profileBgHeightConstraint.constant > 125 {
             animateHeader()
         }
     }
 
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if self.profileBgHeightConstraint.constant > 125 {
-            animateHeader()
-        }
-    }
     func animateHeader() {
         self.profileBgHeightConstraint.constant = 125
         UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
+
     func animateProfileBGImageView(page: Int) {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.1, animations: {
             if page == 0 {
                 self.profileBackground.alpha = 1
             } else {
@@ -189,6 +141,7 @@ extension ProfileViewController: UIScrollViewDelegate {
             }
         }, completion: nil)
     }
+
     func loadMore(_ scrollView: UIScrollView) {
         if tweets != nil && tweets!.count < 19 {
             isMoreDataLoading = true
@@ -196,26 +149,24 @@ extension ProfileViewController: UIScrollViewDelegate {
         if (!isMoreDataLoading) {
             let scrollViewContentHeight = tableView.contentSize.height
             let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
-            
+
             if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
                 isMoreDataLoading = true
-                
+
                 // Update position of loadingMoreView, and start loading indicator
                 let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
                 loadingMoreView?.frame = frame
                 loadingMoreView!.startAnimating()
-                
+
                 var maxId: String?
-                
+
                 if tweets != nil && tweets!.count > 0 {
                     let lastTweet = tweets![tweets!.count - 1]
                     maxId = lastTweet.id
                 }
-                
+
                 loadTweets(maxId: maxId, isRefresh: false)
             }
         }
-
     }
 }
-

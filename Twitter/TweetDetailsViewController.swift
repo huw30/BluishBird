@@ -29,18 +29,15 @@ class TweetDetailsViewController: UIViewController {
     @IBAction func onHomeBtn(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
-    @IBAction func onReplyBtn(_ sender: Any) {
-    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        controlGroupView.tweet = tweet
-        controlGroupView.delegate = self
-        controlGroupView.setup()
         setup()
     }
     
     func setup() {
+        controlGroupView.tweet = tweet
+        controlGroupView.delegate = self
         contentLabel.text = tweet.text
         nameLabel.text = tweet.user?.name
         retweetCount.text = "\(tweet.retweetCount)"

@@ -19,7 +19,9 @@
 		B73540671F88879700A9071F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73540661F88879700A9071F /* MenuViewController.swift */; };
 		B73540691F888C2000A9071F /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73540681F888C2000A9071F /* MenuCell.swift */; };
 		B735406B1F888FF300A9071F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B735406A1F888FF300A9071F /* ProfileViewController.swift */; };
-		B7A9D6101F89EE7A00FD76AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7A9D60F1F89EE7A00FD76AD /* Assets.xcassets */; };
+		B7A9D6121F8A012E00FD76AD /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A9D6111F8A012E00FD76AD /* MenuItems.swift */; };
+		B7A9D6141F8A046D00FD76AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7A9D6131F8A046D00FD76AD /* Assets.xcassets */; };
+		B7A9D6161F8A098A00FD76AD /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A9D6151F8A098A00FD76AD /* UIViewExtension.swift */; };
 		B7BB153C1F7B728F00AD7E1B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB153B1F7B728F00AD7E1B /* User.swift */; };
 		B7BB153E1F7B73B700AD7E1B /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB153D1F7B73B700AD7E1B /* Tweet.swift */; };
 		B7BB15411F7B7B8000AD7E1B /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BB15401F7B7B8000AD7E1B /* TwitterClient.swift */; };
@@ -68,7 +70,9 @@
 		B73540661F88879700A9071F /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		B73540681F888C2000A9071F /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		B735406A1F888FF300A9071F /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		B7A9D60F1F89EE7A00FD76AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B7A9D6111F8A012E00FD76AD /* MenuItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
+		B7A9D6131F8A046D00FD76AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B7A9D6151F8A098A00FD76AD /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		B7BB153B1F7B728F00AD7E1B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B7BB153D1F7B73B700AD7E1B /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		B7BB15401F7B7B8000AD7E1B /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
@@ -156,8 +160,8 @@
 				B75A090C1F7B613200993038 /* View Controllers */,
 				B70EAB931F7B54DA0023C949 /* AppDelegate.swift */,
 				B70EAB971F7B54DA0023C949 /* Main.storyboard */,
-				B7A9D60F1F89EE7A00FD76AD /* Assets.xcassets */,
 				B70EAB9C1F7B54DA0023C949 /* LaunchScreen.storyboard */,
+				B7A9D6131F8A046D00FD76AD /* Assets.xcassets */,
 				B70EAB9F1F7B54DA0023C949 /* Info.plist */,
 			);
 			path = Twitter;
@@ -193,6 +197,7 @@
 			children = (
 				B7BB153B1F7B728F00AD7E1B /* User.swift */,
 				B7BB153D1F7B73B700AD7E1B /* Tweet.swift */,
+				B7A9D6111F8A012E00FD76AD /* MenuItems.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -224,6 +229,7 @@
 				B7BD73521F7F755C0090DC60 /* InfiniteScrollActivityView.swift */,
 				B71CB1FE1F80A284009BF006 /* Colors.swift */,
 				B71CB2001F819D54009BF006 /* DialogBox.swift */,
+				B7A9D6151F8A098A00FD76AD /* UIViewExtension.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -319,7 +325,7 @@
 			files = (
 				B70EAB9E1F7B54DA0023C949 /* LaunchScreen.storyboard in Resources */,
 				B70EAB991F7B54DA0023C949 /* Main.storyboard in Resources */,
-				B7A9D6101F89EE7A00FD76AD /* Assets.xcassets in Resources */,
+				B7A9D6141F8A046D00FD76AD /* Assets.xcassets in Resources */,
 				B7E71D6A1F89D37E0049E327 /* Slide.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -467,6 +473,8 @@
 				B7BD73491F7EEA570090DC60 /* DateUtil.swift in Sources */,
 				B7BB153C1F7B728F00AD7E1B /* User.swift in Sources */,
 				B7E71D681F89D3640049E327 /* Slide.swift in Sources */,
+				B7A9D6161F8A098A00FD76AD /* UIViewExtension.swift in Sources */,
+				B7A9D6121F8A012E00FD76AD /* MenuItems.swift in Sources */,
 				B73540691F888C2000A9071F /* MenuCell.swift in Sources */,
 				B7BB153E1F7B73B700AD7E1B /* Tweet.swift in Sources */,
 			);

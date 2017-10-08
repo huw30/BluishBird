@@ -47,7 +47,6 @@ class TweetCell: UITableViewCell {
 
     func setup() {
         controlGroupView.tweet = tweet
-        controlGroupView.setup()
         controlGroupView.delegate = self
 
         tweetContent.text = tweet.text

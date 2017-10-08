@@ -18,11 +18,20 @@ class ControlGroupView: UIView {
     @IBOutlet weak var replyBtn: UIButton!
     @IBOutlet weak var retweetBtn: UIButton!
     @IBOutlet weak var favoriteBtn: UIButton!
+    @IBOutlet weak var retweetCount: UILabel!
+    @IBOutlet weak var favCount: UILabel!
 
-    var tweet: Tweet!
+    var tweet: Tweet! {
+        didSet {
+            setup()
+        }
+    }
     var delegate: ControlGroupViewDelegate?
 
     func setup() {
+        retweetCount.text = "\(tweet.retweetCount)"
+        favCount.text = "\(tweet.favoritesCount)"
+
         setButtonImages()
 
         if (tweet.favorited) {
