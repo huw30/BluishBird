@@ -96,9 +96,10 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
 
     func homeTimeline(maxId: String?, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
-        var parameters: [String: Any]?
+        var parameters = [String: Any]()
         if let maxId = maxId {
-            parameters = ["max_id": maxId]
+            parameters["max_id"] = maxId
+            parameters["count"] = 21
         }
 
         get("1.1/statuses/home_timeline.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
@@ -111,11 +112,12 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
 
     func userTimeline(screenname: String, maxId: String?, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
-        var parameters: [String: Any]?
+        var parameters = [String: Any]()
         if let maxId = maxId {
-            parameters = ["max_id": maxId]
+            parameters["max_id"] = maxId
+            parameters["count"] = 21
         }
-        parameters = ["screen_name": screenname]
+        parameters["screen_name"] = screenname
 
         get("1.1/statuses/user_timeline.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let tweetsDictionary = response as! [[String: Any]]
@@ -127,9 +129,10 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
 
     func mentionsTimeline(maxId: String?, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
-        var parameters: [String: Any]?
+        var parameters = [String: Any]()
         if let maxId = maxId {
-            parameters = ["max_id": maxId]
+            parameters["max_id"] = maxId
+            parameters["count"] = 21
         }
         get("1.1/statuses/mentions_timeline.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let tweetsDictionary = response as! [[String: Any]]

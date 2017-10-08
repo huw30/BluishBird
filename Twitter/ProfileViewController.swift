@@ -83,6 +83,10 @@ class ProfileViewController: TweetListViewController {
     override func loadTweets(maxId: String?, isRefresh: Bool) {
         MBProgressHUD.showAdded(to: self.view, animated: true)
         TwitterClient.sharedInstance.userTimeline(screenname: user.screenname!, maxId: maxId, success: { (tweets: [Tweet]) in
+            var tweets = tweets
+            if tweets.count == 21 {
+                tweets.removeFirst()
+            }
             if isRefresh {
                 self.tweets = tweets
             } else {
