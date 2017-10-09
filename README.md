@@ -1,56 +1,58 @@
-# Project 3 - *BluishBird*
+# Project 4 - *Name of App Here*
 
-**BluishBird** is a basic twitter app to read and compose tweets from the [Twitter API](https://apps.twitter.com/).
-
-Time spent: **20** hours spent in total
+Time spent: **15** hours spent in total
 
 ## User Stories
 
 The following **required** functionality is completed:
 
-- [x] User can sign in using OAuth login flow.
-- [x] User can view last 20 tweets from their home timeline.
-- [x] The current signed in user will be persisted across restarts.
-- [x] In the home timeline, user can view tweet with the user profile picture, username, tweet text, and timestamp.  In other words, design the custom cell with the proper Auto Layout settings.  You will also need to augment the model classes.
-- [x] User can pull to refresh.
-- [x] User can compose a new tweet by tapping on a compose button.
-- [x] User can tap on a tweet to view it, with controls to retweet, favorite, and reply.
+- [x] Hamburger menu
+   - [x] Dragging anywhere in the view should reveal the menu.
+   - [x] The menu should include links to your profile, the home timeline, and the mentions view.
+   - [x] The menu can look similar to the example or feel free to take liberty with the UI.
+- [x] Profile page
+   - [x] Contains the user header view
+   - [x] Contains a section with the users basic stats: # tweets, # following, # followers
+- [x] Home Timeline
+   - [x] Tapping on a user image should bring up that user's profile page
 
 The following **optional** features are implemented:
 
-- [x] When composing, you should have a countdown in the upper right for the tweet limit.
-- [x] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network.
-- [x] Retweeting and favoriting should increment the retweet and favorite count.
-- [x] User should be able to unretweet and unfavorite and should decrement the retweet and favorite count.
-- [x] Replies should be prefixed with the username and the reply_id should be set when posting the tweet,
-- [x] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
+- [x] Profile Page
+   - [x] Implement the paging view for the user description.
+   - [x] As the paging view moves, increase the opacity of the background screen. See the actual Twitter app for this effect
+   - [x] Pulling down the profile page should blur and resize the header image.
+- [ ] Account switching
+   - [ ] Long press on tab bar to bring up Account view with animation
+   - [ ] Tap account to switch to
+   - [ ] Include a plus button to Add an Account
+   - [ ] Swipe to delete an account
+
 
 The following **additional** features are implemented:
 
-- [x] Added dialog to communicate any errors
+- [x] Profile page, Home timeline, and mentions timeline are all inhiriting from one file, and share code
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. How does UI code separate with your business logic?
+  1. Did you implement the media entities into each tweet? 
+  2. How did you implement the "reply, retweet, favorite" control group so that different screens are using it without repeating logic
+
 
 ## Video Walkthrough
 
-Here're walkthroughs of implemented user stories:
+Here's a walkthrough of implemented user stories:
 
-<img src='https://i.imgur.com/XMgtgs6.gif' title='Login and logout' width='' alt='Login' /><img src='https://i.imgur.com/JWR35JM.gif' title='List view' width='' alt='List' />
-<img src='https://i.imgur.com/G7k5xom.gif' title='Compose' width='' alt='Compose' />
-<img src='https://i.imgur.com/K9oPDM4.gif' title='Compose' width='' alt='Dialogs' />
-<img src='https://i.imgur.com/cD9ALrm.gif' title='Controls' width='' alt='Controls' />
-<img src='https://i.imgur.com/4Io8fkl.gif' title='Dialogs' width='' alt='Dialogs' />
-<img src='https://i.imgur.com/YnWVlWy.gif' title='Dialogs' width='' alt='Dialogs' />
-<img src='https://i.imgur.com/o1kwNac.jpeg' title='Dialogs' width='' alt='Dialogs' />
+<img src='https://i.imgur.com/6VvjmQu.gif' title='Profile' width='' alt='Profile' />
+<img src='https://user-images.githubusercontent.com/5446130/31323563-564d13d2-ac5e-11e7-9dba-b46e4f0fda83.gif' title='menu' width='' alt='menu' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-1. Getting Original tweet if the current tweet is a retweeter
-2. Dialogs presenting :)
+- Refactor code to make sure that profile view, home timeline and mentions are sharing code, no redundant code
+- paging view took some time
+- how to manage table view, table header and the profile background image, so that I can get the desired scroll behavior
 
 ## License
 
