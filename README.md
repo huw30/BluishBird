@@ -45,6 +45,7 @@ Here's a walkthrough of implemented user stories:
 
 <img src='https://user-images.githubusercontent.com/5446130/31323645-9a265e32-ac5f-11e7-8454-12d0d7c1239d.gif' title='Profile' width='' alt='Profile' />
 <img src='https://user-images.githubusercontent.com/5446130/31323563-564d13d2-ac5e-11e7-9dba-b46e4f0fda83.gif' title='menu' width='' alt='menu' />
+<img src='https://user-images.githubusercontent.com/5446130/31323780-381a72c6-ac61-11e7-8b43-cf083b4e3788.gif' title='profiles' width='' alt='profiles' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
